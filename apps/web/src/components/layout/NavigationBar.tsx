@@ -14,7 +14,7 @@ export default function NavigationBar({
   onHome,
 }: NavigationBarProps) {
   return (
-    <div className="h-14 bg-transparent flex items-center justify-between px-4 py-3">
+    <div className="h-20 bg-transparent flex items-center justify-between px-4 py-3" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
       <div className="flex items-center gap-4">
         {showBackButton && (
           <button
