@@ -21,6 +21,8 @@ export default function SocialLoginButtons({ onEmailLogin }: SocialLoginButtonsP
 
   const handleAppleLogin = () => {
     console.log('애플 로그인');
+    // 애플 로그인 시 이용약관 동의 화면으로 이동
+    window.location.href = '/signup/terms';
   };
 
   const handleEmailLogin = () => {
