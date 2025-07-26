@@ -2,7 +2,11 @@
 
 import SocialLoginButton from './SocialLoginButton';
 
-export default function SocialLoginButtons() {
+interface SocialLoginButtonsProps {
+  onEmailLogin?: () => void;
+}
+
+export default function SocialLoginButtons({ onEmailLogin }: SocialLoginButtonsProps) {
   const handleKakaoLogin = () => {
     console.log('카카오 로그인');
   };
@@ -21,6 +25,7 @@ export default function SocialLoginButtons() {
 
   const handleEmailLogin = () => {
     console.log('이메일 로그인');
+    onEmailLogin?.();
   };
 
   return (
