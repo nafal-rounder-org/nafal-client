@@ -3,7 +3,7 @@ import React from 'react';
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'disabled';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   className?: string;
@@ -27,6 +27,8 @@ export default function Button({
         return 'bg-gray-200 text-black hover:bg-gray-300';
       case 'outline':
         return 'border border-gray-300 text-black hover:bg-gray-50';
+      case 'disabled':
+        return 'bg-[#E0E0E0] text-[#9E9E9E] cursor-not-allowed';
       default:
         return 'bg-black text-white hover:bg-gray-800';
     }
