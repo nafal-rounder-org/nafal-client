@@ -152,9 +152,9 @@ export default function TermsDetailModal({ isOpen, onClose, termId }: TermsDetai
 
   return (
     <div className="fixed inset-0 z-50">
-      {/* 배경 오버레이 */}
+      {/* 배경 오버레이 - dim 처리 제거 */}
       <div 
-        className="absolute inset-0 bg-black bg-opacity-30"
+        className="absolute inset-0"
         onClick={handleClose}
       />
       

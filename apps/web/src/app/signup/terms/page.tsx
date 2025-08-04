@@ -15,7 +15,8 @@ export default function TermsAgreementPage() {
 
   const handleNextClick = () => {
     console.log('다음 버튼 클릭됨');
-    // TODO: 회원가입 완료 페이지로 이동
+    // 본인인증 페이지로 이동
+    window.location.href = '/signup/verification';
   };
 
   return (

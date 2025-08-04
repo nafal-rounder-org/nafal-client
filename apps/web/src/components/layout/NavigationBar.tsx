@@ -3,6 +3,7 @@
 interface NavigationBarProps {
   showBackButton?: boolean;
   showHomeButton?: boolean;
+  title?: string;
   onBack?: () => void;
   onHome?: () => void;
 }
@@ -10,17 +11,15 @@ interface NavigationBarProps {
 export default function NavigationBar({
   showBackButton = true,
   showHomeButton = true,
+  title,
   onBack,
   onHome,
 }: NavigationBarProps) {
   return (
-    <div className="h-20 bg-transparent flex items-center justify-between px-4 py-3" style={{ paddingTop: 'max(env(safe-area-inset-top), 44px)' }}>
+    <div className="h-20 md:h-16 bg-transparent flex items-center justify-between px-4 py-3 md:py-2 pt-[max(env(safe-area-inset-top),56px)] md:pt-0">
       <div className="flex items-center gap-4">
         {showBackButton && (
-          <button
-            onClick={onBack}
-            className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 flex items-center justify-center"
-          >
+          <button onClick={onBack} className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 flex items-center justify-center">
             <img
               src="/assets/ic-arrow.svg"
               alt="뒤로가기"
@@ -30,16 +29,15 @@ export default function NavigationBar({
         )}
       </div>
 
+      {title && (
+        <div className="flex-1 text-center">
+          <h1 className="text-base font-normal text-black">{title}</h1>
+        </div>
+      )}
+
       {showHomeButton && (
-        <button
-          onClick={onHome}
-          className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 flex items-center justify-center"
-        >
-          <img
-            src="/assets/ic-home.svg"
-            alt="홈"
-            className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 object-contain"
-          />
+        <button onClick={onHome} className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 flex items-center justify-center">
+          <img src="/assets/ic-home.svg" alt="홈" className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 object-contain" />
         </button>
       )}
     </div>
