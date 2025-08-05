@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import LikeButton from './LikeButton';
 
 interface ProductCardProps {
   product: {
     id: string;
-    name: string;
+    title: string;
     eventName: string;
     currentPrice: number;
     bidCount: number;
@@ -20,44 +21,27 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, variant = 'tile', onClick, onLikeToggle }: ProductCardProps) {
-  const [imageError, setImageError] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
-
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     onLikeToggle?.(product.id);
   };
 
-  const handleImageLoad = () => {
-    setImageLoading(false);
-  };
-
-  const handleImageError = () => {
-    setImageError(true);
-    setImageLoading(false);
-  };
-
   const renderImage = () => {
-    if (imageError) {
-      return (
-        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-          <span className="text-gray-500 text-sm">이미지 없음</span>
-        </div>
-      );
-    }
-
     return (
-      <>
-        {imageLoading && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
-        <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="w-full h-full object-cover"
-          onLoad={handleImageLoad}
-          onError={handleImageError}
-          loading="lazy"
-        />
-      </>
+      <Image
+        src={product.imageUrl}
+        alt={product.title}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 50vw, 33vw"
+        quality={75}
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+        onError={() => {
+          // 에러 시 기본 이미지 표시
+          console.error('이미지 로드 실패:', product.imageUrl);
+        }}
+      />
     );
   };
 
@@ -77,7 +61,7 @@ export default function ProductCard({ product, variant = 'tile', onClick, onLike
         <div className="flex-1 p-4">
           <div className="mb-2">
             <div className="text-xs font-semibold text-[#9E9E9E] mb-1">{product.eventName}</div>
-            <div className="text-sm text-black leading-[1.4] line-clamp-2">{product.name}</div>
+            <div className="text-sm text-black leading-[1.4] line-clamp-2">{product.title}</div>
           </div>
 
           <div className="flex items-center gap-2 mb-2">
@@ -121,7 +105,7 @@ export default function ProductCard({ product, variant = 'tile', onClick, onLike
       <div className="p-2">
         <div className="mb-2">
           <div className="text-xs font-semibold text-[#9E9E9E] mb-1">{product.eventName}</div>
-          <div className="text-sm text-black leading-[1.4] line-clamp-2">{product.name}</div>
+          <div className="text-sm text-black leading-[1.4] line-clamp-2">{product.title}</div>
         </div>
 
         <div className="flex items-center gap-2 mb-2">
