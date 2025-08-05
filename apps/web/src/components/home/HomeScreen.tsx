@@ -14,6 +14,18 @@ export default function HomeScreen() {
   const [hasWishlist, setHasWishlist] = useState(true);
   const [refreshTime, setRefreshTime] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 모바일 환경 감지
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      setIsMobile(isMobileDevice);
+    };
+
+    checkMobile();
+  }, []);
 
   // 새로고침 시간 업데이트 (1분마다)
   useEffect(() => {
@@ -56,7 +68,15 @@ export default function HomeScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFFF5]">
+    <div
+      className="min-h-screen bg-[#FFFFF5]"
+      style={{
+        paddingTop: isMobile ? 'env(safe-area-inset-top, 44px)' : '0px',
+        paddingBottom: isMobile ? 'env(safe-area-inset-bottom, 34px)' : '0px',
+        paddingLeft: isMobile ? 'env(safe-area-inset-left, 0px)' : '0px',
+        paddingRight: isMobile ? 'env(safe-area-inset-right, 0px)' : '0px',
+      }}
+    >
       {/* 네비게이션 바 */}
       <NavigationBar />
 
@@ -67,7 +87,7 @@ export default function HomeScreen() {
       <BannerSection />
 
       {/* 메인 콘텐츠 */}
-      <div className="px-4 pb-20">
+      <div className="px-4 pb-24">
         {hasWishlist && <WishlistSection onProductClick={handleProductClick} onLikeToggle={handleLikeToggle} />}
         <RecommendationSection onProductClick={handleProductClick} onLikeToggle={handleLikeToggle} />
       </div>
