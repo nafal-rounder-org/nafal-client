@@ -1,45 +1,33 @@
 'use client';
 
-interface NavigationBarProps {
-  showBackButton?: boolean;
-  showHomeButton?: boolean;
-  title?: string;
-  onBack?: () => void;
-  onHome?: () => void;
-}
+import React from 'react';
+import SearchIcon from '@/components/ui/SearchIcon';
+import NotificationIcon from '@/components/ui/NotificationIcon';
 
-export default function NavigationBar({
-  showBackButton = true,
-  showHomeButton = true,
-  title,
-  onBack,
-  onHome,
-}: NavigationBarProps) {
+export default function NavigationBar() {
   return (
-    <div className="h-20 md:h-16 bg-transparent flex items-center justify-between px-4 py-3 md:py-2 pt-[max(env(safe-area-inset-top),56px)] md:pt-0">
-      <div className="flex items-center gap-4">
-        {showBackButton && (
-          <button onClick={onBack} className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 flex items-center justify-center">
-            <img
-              src="/assets/ic-arrow.svg"
-              alt="뒤로가기"
-              className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 object-contain"
-            />
-          </button>
-        )}
+    <div className="h-14 bg-black flex items-center justify-between px-4">
+      {/* 로고 */}
+      <div className="flex items-center">
+        <img
+          src="/assets/lg-nafal-white.svg"
+          alt="Nafal"
+          className="h-8 w-24"
+        />
       </div>
 
-      {title && (
-        <div className="flex-1 text-center">
-          <h1 className="text-base font-normal text-black">{title}</h1>
-        </div>
-      )}
-
-      {showHomeButton && (
-        <button onClick={onHome} className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 flex items-center justify-center">
-          <img src="/assets/ic-home.svg" alt="홈" className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 object-contain" />
+      {/* 우측 아이콘들 */}
+      <div className="flex items-center gap-4">
+        {/* 검색 아이콘 */}
+        <button className="w-6 h-6 flex items-center justify-center">
+          <SearchIcon strokeColor="white" strokeWidth={1.5} />
         </button>
-      )}
+
+        {/* 알림 아이콘 */}
+        <button className="w-6 h-6 flex items-center justify-center">
+          <NotificationIcon strokeColor="white" strokeWidth={2} />
+        </button>
+      </div>
     </div>
   );
 }
