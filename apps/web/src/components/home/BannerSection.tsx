@@ -1,25 +1,26 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 const banners = [
   {
     id: 1,
     title: '덕질은\n삶의 에너지니까',
     subtitle: '오직 나팔에서만',
-    imageUrl: 'https://via.placeholder.com/310x456/4A90E2/FFFFFF?text=Banner+1',
+    imageUrl: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=310&h=456&fit=crop&crop=center',
   },
   {
     id: 2,
     title: '덕질은\n삶의 에너지니까',
     subtitle: '오직 나팔에서만',
-    imageUrl: 'https://via.placeholder.com/310x456/50C878/FFFFFF?text=Banner+2',
+    imageUrl: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=310&h=456&fit=crop&crop=center',
   },
   {
     id: 3,
     title: '덕질은\n삶의 에너지니까',
     subtitle: '오직 나팔에서만',
-    imageUrl: 'https://via.placeholder.com/310x456/F39C12/FFFFFF?text=Banner+3',
+    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=310&h=456&fit=crop&crop=center',
   },
 ];
 
@@ -32,10 +33,17 @@ export default function BannerSection() {
           className="flex-shrink-0 w-[310px] h-[456px] rounded-lg flex flex-col justify-end items-center p-6 relative overflow-hidden"
         >
           {/* 배경 이미지 */}
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${banner.imageUrl})`,
+          <Image
+            src={banner.imageUrl}
+            alt={`${banner.title} - ${banner.subtitle}`}
+            fill
+            className="object-cover"
+            sizes="310px"
+            quality={75}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+            onError={() => {
+              console.error('배너 이미지 로드 실패:', banner.imageUrl);
             }}
           />
 
