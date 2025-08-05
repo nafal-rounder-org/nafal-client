@@ -1,6 +1,6 @@
 import React from 'react';
-import HomeScreen from '@/components/home/HomeScreen';
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  return <HomeScreen />;
+  redirect('/home/recommendation');
 }

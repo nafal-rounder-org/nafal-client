@@ -1,15 +1,23 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useHomeStore } from '@/stores/homeStore';
 import NavigationBar from '@/components/layout/NavigationBar';
 import CategoryBar from './CategoryBar';
 import BannerSection from './BannerSection';
 import WishlistSection from './WishlistSection';
 import RecommendationSection from './RecommendationSection';
+import NewSection from './NewSection';
 import MenuBar from './MenuBar';
 import RefreshButton from './RefreshButton';
 
-export default function HomeScreen() {
+interface HomeScreenProps {
+  defaultTab?: 'recommend' | 'new' | 'ranking' | 'upcoming' | 'ending' | 'ended';
+}
+
+export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps) {
+  const { activeTab, newRefreshTime, newIsLoading, setNewRefreshTime, setNewIsLoading, setActiveTab } = useHomeStore();
+
   // 상태 관리
   const [hasWishlist, setHasWishlist] = useState(true);
   const [refreshTime, setRefreshTime] = useState(new Date());
@@ -27,27 +35,47 @@ export default function HomeScreen() {
     checkMobile();
   }, []);
 
+  // defaultTab에 따라 초기 탭 설정
+  useEffect(() => {
+    setActiveTab(defaultTab);
+  }, [defaultTab, setActiveTab]);
+
   // 새로고침 시간 업데이트 (1분마다)
   useEffect(() => {
     const interval = setInterval(() => {
       setRefreshTime(new Date());
+      setNewRefreshTime(new Date());
     }, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [setNewRefreshTime]);
 
   // 새로고침 핸들러
   const handleRefresh = async () => {
-    setIsLoading(true);
-    try {
-      // TODO: 실제 API 호출로 교체
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setRefreshTime(new Date());
-      console.log('데이터 새로고침 완료');
-    } catch (error) {
-      console.error('새로고침 실패:', error);
-    } finally {
-      setIsLoading(false);
+    if (activeTab === 'new') {
+      setNewIsLoading(true);
+      try {
+        // TODO: 실제 API 호출로 교체
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setNewRefreshTime(new Date());
+        console.log('신규 탭 데이터 새로고침 완료');
+      } catch (error) {
+        console.error('신규 탭 새로고침 실패:', error);
+      } finally {
+        setNewIsLoading(false);
+      }
+    } else {
+      setIsLoading(true);
+      try {
+        // TODO: 실제 API 호출로 교체
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setRefreshTime(new Date());
+        console.log('데이터 새로고침 완료');
+      } catch (error) {
+        console.error('새로고침 실패:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -67,6 +95,31 @@ export default function HomeScreen() {
     console.log('상품 클릭:', productId);
   };
 
+  // 탭별 콘텐츠 렌더링
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'new':
+        return (
+          <div className="pb-24">
+            <NewSection />
+          </div>
+        );
+      case 'recommend':
+      default:
+        return (
+          <div className="px-4 pb-24">
+            {hasWishlist && <WishlistSection onProductClick={handleProductClick} onLikeToggle={handleLikeToggle} />}
+            <RecommendationSection onProductClick={handleProductClick} onLikeToggle={handleLikeToggle} />
+          </div>
+        );
+    }
+  };
+
+  // 새로고침 버튼 표시 여부
+  const shouldShowRefreshButton = activeTab === 'new' || activeTab === 'recommend';
+  const currentRefreshTime = activeTab === 'new' ? newRefreshTime : refreshTime;
+  const currentIsLoading = activeTab === 'new' ? newIsLoading : isLoading;
+
   return (
     <div
       className="min-h-screen bg-[#FFFFF5]"
@@ -83,20 +136,19 @@ export default function HomeScreen() {
       {/* 카테고리 바 */}
       <CategoryBar />
 
-      {/* 배너 섹션 */}
-      <BannerSection />
+      {/* 배너 섹션 (추천 탭에서만 표시) */}
+      {activeTab === 'recommend' && <BannerSection />}
 
       {/* 메인 콘텐츠 */}
-      <div className="px-4 pb-24">
-        {hasWishlist && <WishlistSection onProductClick={handleProductClick} onLikeToggle={handleLikeToggle} />}
-        <RecommendationSection onProductClick={handleProductClick} onLikeToggle={handleLikeToggle} />
-      </div>
+      {renderContent()}
 
       {/* 메뉴 바 */}
       <MenuBar />
 
       {/* 새로고침 버튼 */}
-      <RefreshButton refreshTime={refreshTime} isLoading={isLoading} onRefresh={handleRefresh} />
+      {shouldShowRefreshButton && (
+        <RefreshButton refreshTime={currentRefreshTime} isLoading={currentIsLoading} onRefresh={handleRefresh} />
+      )}
     </div>
   );
 }
