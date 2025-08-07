@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useHomeStore } from '@/stores/homeStore';
 import { useRankingStore } from '@/stores/rankingStore';
-import NavigationBar from '@/components/layout/NavigationBar';
+import { NavigationBar } from '@/components/layout/NavigationBar';
 import CategoryBar from './CategoryBar';
 import BannerSection from './BannerSection';
 import WishlistSection from './WishlistSection';
@@ -18,6 +19,7 @@ interface HomeScreenProps {
 }
 
 export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps) {
+  const router = useRouter();
   const { activeTab, newRefreshTime, newIsLoading, setNewRefreshTime, setNewIsLoading, setActiveTab } = useHomeStore();
   const {
     refreshTime: rankingRefreshTime,
@@ -105,8 +107,8 @@ export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps
 
   // 상품 클릭 핸들러
   const handleProductClick = (productId: string) => {
-    // TODO: 상품 상세 페이지로 이동
-    console.log('상품 클릭:', productId);
+    // 상품 상세 페이지로 이동
+    router.push(`/product/${productId}`);
   };
 
   // 탭별 콘텐츠 렌더링
@@ -172,7 +174,7 @@ export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps
       }}
     >
       {/* 네비게이션 바 */}
-      <NavigationBar />
+      <NavigationBar variant="home" />
 
       {/* 카테고리 바 */}
       <CategoryBar />

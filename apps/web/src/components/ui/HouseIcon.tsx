@@ -1,0 +1,24 @@
+import React from 'react';
+
+interface HouseIconProps {
+  className?: string;
+  fillColor?: string;
+}
+
+export default function HouseIcon({ className = '', fillColor = 'white' }: HouseIconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M2 10V23.5H9.5V17.5C9.5 15.8431 10.8431 14.5 12.5 14.5C14.1569 14.5 15.5 15.8431 15.5 17.5V23.5H23V10L12.5 1L2 10Z"
+        fill={fillColor}
+      />
+    </svg>
+  );
+}
