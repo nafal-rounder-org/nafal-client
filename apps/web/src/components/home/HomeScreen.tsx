@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useHomeStore } from '@/stores/homeStore';
+import { useRankingStore } from '@/stores/rankingStore';
 import NavigationBar from '@/components/layout/NavigationBar';
 import CategoryBar from './CategoryBar';
 import BannerSection from './BannerSection';
 import WishlistSection from './WishlistSection';
 import RecommendationSection from './RecommendationSection';
 import NewSection from './NewSection';
+import RankingSection from './RankingSection';
 import MenuBar from './MenuBar';
 import RefreshButton from './RefreshButton';
 
@@ -17,6 +19,11 @@ interface HomeScreenProps {
 
 export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps) {
   const { activeTab, newRefreshTime, newIsLoading, setNewRefreshTime, setNewIsLoading, setActiveTab } = useHomeStore();
+  const {
+    refreshTime: rankingRefreshTime,
+    isLoading: rankingIsLoading,
+    refreshData: rankingRefreshData,
+  } = useRankingStore();
 
   // 상태 관리
   const [hasWishlist, setHasWishlist] = useState(true);
@@ -64,6 +71,13 @@ export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps
       } finally {
         setNewIsLoading(false);
       }
+    } else if (activeTab === 'ranking') {
+      try {
+        await rankingRefreshData();
+        console.log('랭킹 탭 데이터 새로고침 완료');
+      } catch (error) {
+        console.error('랭킹 탭 새로고침 실패:', error);
+      }
     } else {
       setIsLoading(true);
       try {
@@ -104,6 +118,12 @@ export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps
             <NewSection />
           </div>
         );
+      case 'ranking':
+        return (
+          <div className="pb-24">
+            <RankingSection onProductClick={handleProductClick} onLikeToggle={handleLikeToggle} />
+          </div>
+        );
       case 'recommend':
       default:
         return (
@@ -116,9 +136,30 @@ export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps
   };
 
   // 새로고침 버튼 표시 여부
-  const shouldShowRefreshButton = activeTab === 'new' || activeTab === 'recommend';
-  const currentRefreshTime = activeTab === 'new' ? newRefreshTime : refreshTime;
-  const currentIsLoading = activeTab === 'new' ? newIsLoading : isLoading;
+  const shouldShowRefreshButton = activeTab === 'new' || activeTab === 'recommend' || activeTab === 'ranking';
+
+  // 현재 탭에 따른 새로고침 시간과 로딩 상태
+  const getCurrentRefreshTime = () => {
+    switch (activeTab) {
+      case 'new':
+        return newRefreshTime;
+      case 'ranking':
+        return rankingRefreshTime;
+      default:
+        return refreshTime;
+    }
+  };
+
+  const getCurrentIsLoading = () => {
+    switch (activeTab) {
+      case 'new':
+        return newIsLoading;
+      case 'ranking':
+        return rankingIsLoading;
+      default:
+        return isLoading;
+    }
+  };
 
   return (
     <div
@@ -147,7 +188,11 @@ export default function HomeScreen({ defaultTab = 'recommend' }: HomeScreenProps
 
       {/* 새로고침 버튼 */}
       {shouldShowRefreshButton && (
-        <RefreshButton refreshTime={currentRefreshTime} isLoading={currentIsLoading} onRefresh={handleRefresh} />
+        <RefreshButton
+          refreshTime={getCurrentRefreshTime()}
+          isLoading={getCurrentIsLoading()}
+          onRefresh={handleRefresh}
+        />
       )}
     </div>
   );
