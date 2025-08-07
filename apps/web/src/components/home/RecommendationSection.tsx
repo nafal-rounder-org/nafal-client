@@ -13,8 +13,8 @@ export default function RecommendationSection({ onProductClick, onLikeToggle }: 
   const recommendedProducts = [
     {
       id: 'rec1',
-      title: '추천 상품 1',
-      eventName: '경매 이벤트 1',
+      title: '총천연색 필름 - 팝업 스토어 전시품',
+      eventName: '총천연색 필름',
       currentPrice: 150000,
       bidCount: 12,
       remainingTime: '24시간 30분',
@@ -23,8 +23,8 @@ export default function RecommendationSection({ onProductClick, onLikeToggle }: 
     },
     {
       id: 'rec2',
-      title: '추천 상품 2',
-      eventName: '경매 이벤트 2',
+      title: '환경 친화적 소재 제품',
+      eventName: '지속가능한 미래',
       currentPrice: 89000,
       bidCount: 8,
       remainingTime: '48시간 15분',
@@ -33,8 +33,8 @@ export default function RecommendationSection({ onProductClick, onLikeToggle }: 
     },
     {
       id: 'rec3',
-      title: '추천 상품 3',
-      eventName: '경매 이벤트 3',
+      title: '한정판 아트워크',
+      eventName: '아티스트 콜라보레이션',
       currentPrice: 230000,
       bidCount: 15,
       remainingTime: '12시간 45분',
@@ -43,8 +43,8 @@ export default function RecommendationSection({ onProductClick, onLikeToggle }: 
     },
     {
       id: 'rec4',
-      title: '추천 상품 4',
-      eventName: '경매 이벤트 4',
+      title: '업사이클링 제품',
+      eventName: '업사이클링 프로젝트',
       currentPrice: 67000,
       bidCount: 5,
       remainingTime: '72시간 20분',
