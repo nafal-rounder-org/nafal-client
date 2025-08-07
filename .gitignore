@@ -3,7 +3,7 @@
 .LSOverride
 
 Icon
-
+*.mdc
 ._*
 
 .DocumentRevisions-V100

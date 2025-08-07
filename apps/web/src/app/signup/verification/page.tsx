@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import NavigationBar from '@/components/layout/NavigationBar';
+import { NavigationBar } from '@/components/layout/NavigationBar';
 import IdentityVerificationForm from '@/components/auth/IdentityVerificationForm';
 import IdentityVerificationInputForm from '@/components/auth/IdentityVerificationInputForm';
 
@@ -32,7 +32,7 @@ export default function IdentityVerificationPage() {
 
   return (
     <div className="min-h-screen bg-[#FFFFF5] flex flex-col">
-      <NavigationBar title="본인인증" onHome={handleHomeClick} onBack={handleBackClick} />
+      <NavigationBar />
 
       <div className="flex-1 px-4 pt-6">
         {/* 제목 - 약관 동의 단계에서만 표시 */}

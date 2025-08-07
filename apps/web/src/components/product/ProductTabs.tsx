@@ -57,12 +57,12 @@ export function ProductTabs({ productId }: ProductTabsProps) {
       {/* 고정된 탭 바 */}
       {isTabBarFixed && (
         <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#E0E0E0]">
-          <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+          <TabBar tabs={tabs} activeTab={activeTab} onTabChange={(tabId) => setActiveTab(tabId as TabType)} />
         </div>
       )}
 
       {/* 일반 탭 바 */}
-      {!isTabBarFixed && <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />}
+      {!isTabBarFixed && <TabBar tabs={tabs} activeTab={activeTab} onTabChange={(tabId) => setActiveTab(tabId as TabType)} />}
 
       {/* 탭 콘텐츠 */}
       <div className={isTabBarFixed ? 'pt-14' : ''}>{renderTabContent()}</div>

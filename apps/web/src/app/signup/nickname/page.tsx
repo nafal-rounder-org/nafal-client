@@ -1,6 +1,6 @@
 'use client';
 
-import NavigationBar from '@/components/layout/NavigationBar';
+import { NavigationBar } from '@/components/layout/NavigationBar';
 
 export default function NicknamePage() {
   const handleHomeClick = () => {
@@ -14,7 +14,7 @@ export default function NicknamePage() {
 
   return (
     <div className="min-h-screen bg-[#FFFFF5] flex flex-col">
-      <NavigationBar title="닉네임 설정" onHome={handleHomeClick} onBack={handleBackClick} />
+      <NavigationBar />
 
       <div className="flex-1 px-4 pt-6">
         {/* 제목 */}

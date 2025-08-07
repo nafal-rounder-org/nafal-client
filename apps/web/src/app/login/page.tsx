@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import NavigationBar from '@/components/layout/NavigationBar';
+import { NavigationBar } from '@/components/layout/NavigationBar';
 import BrandingSection from '@/components/auth/BrandingSection';
 import SocialLoginButtons from '@/components/auth/SocialLoginButtons';
 import EmailLoginForm from '@/components/auth/EmailLoginForm';
@@ -25,7 +25,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#FFFFF5] flex flex-col">
-      <NavigationBar onHome={handleHomeClick} />
+      <NavigationBar />
 
       <div className="flex-1 relative">
         {!showEmailLogin ? (

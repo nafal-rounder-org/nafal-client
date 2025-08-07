@@ -1,6 +1,6 @@
 'use client';
 
-import NavigationBar from '@/components/layout/NavigationBar';
+import { NavigationBar } from '@/components/layout/NavigationBar';
 import TermsAgreementForm from '@/components/auth/TermsAgreementForm';
 
 export default function TermsAgreementPage() {
@@ -21,7 +21,7 @@ export default function TermsAgreementPage() {
 
   return (
     <div className="min-h-screen bg-[#FFFFF5] flex flex-col">
-      <NavigationBar onHome={handleHomeClick} onBack={handleBackClick} />
+      <NavigationBar />
 
       <div className="flex-1 px-4 pt-6">
         {/* 제목 */}
