@@ -3,11 +3,15 @@ import React from 'react';
 interface HeartIconProps {
   className?: string;
   fillColor?: string;
+  strokeColor?: string;
+  strokeWidth?: number;
 }
 
 export default function HeartIcon({ 
   className = '', 
-  fillColor = 'black' 
+  fillColor = 'black',
+  strokeColor,
+  strokeWidth
 }: HeartIconProps) {
   return (
     <svg 
