@@ -1,0 +1,170 @@
+import React from 'react';
+
+interface IconProps {
+  name: string;
+  size?: number;
+  className?: string;
+  onClick?: () => void;
+  strokeColor?: string;
+  strokeWidth?: number;
+}
+
+export default function Icon({ 
+  name, 
+  size = 24, 
+  className = '', 
+  onClick,
+  strokeColor = 'currentColor',
+  strokeWidth = 2
+}: IconProps) {
+  const getIconPath = () => {
+    switch (name) {
+      case 'arrow':
+        return (
+          <path
+            d="M19 12H5M12 19L5 12L12 5"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      case 'arrow-left':
+        return (
+          <path
+            d="M19 12H5M12 19L5 12L12 5"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      case 'home':
+        return <path d="M3 9L10.5 2L18 9V20H13V14H8V20H3V9Z" fill={strokeColor} />;
+      case 'eye':
+        return (
+          <>
+            <path
+              d="M2.42012 12.7132C2.28394 12.4975 2.21584 12.3897 2.17772 12.2234C2.14909 12.0985 2.14909 11.9015 2.17772 11.7766C2.21584 11.6103 2.28394 11.5025 2.42012 11.2868C3.54553 9.50484 6.8954 5 12.0004 5C17.1054 5 20.4553 9.50484 21.5807 11.2868C21.7169 11.5025 21.785 11.6103 21.8231 11.7766C21.8517 11.9015 21.8517 12.0985 21.8231 12.2234C21.785 12.3897 21.7169 12.4975 21.5807 12.7132C20.4553 14.4952 17.1054 19 12.0004 19C6.8954 19 3.54553 14.4952 2.42012 12.7132Z"
+              stroke={strokeColor}
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+              stroke={strokeColor}
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </>
+        );
+      case 'eye-off':
+        return (
+          <>
+            <path
+              d="M10.7429 5.09232C11.1494 5.03223 11.5686 5 12.0004 5C17.1054 5 20.4553 9.50484 21.5807 11.2868C21.7169 11.5025 21.785 11.6103 21.8231 11.7767C21.8518 11.9016 21.8517 12.0987 21.8231 12.2236C21.7849 12.3899 21.7164 12.4985 21.5792 12.7156C21.2793 13.1901 20.8222 13.8571 20.2165 14.5805M6.72432 6.71504C4.56225 8.1817 3.09445 10.2194 2.42111 11.2853C2.28428 11.5019 2.21587 11.6102 2.17774 11.7765C2.1491 11.9014 2.14909 12.0984 2.17771 12.2234C2.21583 12.3897 2.28393 12.4975 2.42013 12.7132C3.54554 14.4952 6.89541 19 12.0004 19C14.0588 19 15.8319 18.2676 17.2888 17.2766M3.00042 3L21.0004 21M9.8791 9.87868C9.3362 10.4216 9.00042 11.1716 9.00042 12C9.00042 13.6569 10.3436 15 12.0004 15C12.8288 15 13.5788 14.6642 14.1217 14.1213"
+              stroke={strokeColor}
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </>
+        );
+      case 'checkbox-unchecked':
+        return (
+          <>
+            <path
+              d="M20 2H4C2.89543 2 2 2.89543 2 4V20C2 21.1046 2.89543 22 4 22H20C21.1046 22 22 21.1046 22 20V4C22 2.89543 21.1046 2 20 2Z"
+              fill="#E0E0E0"
+            />
+            <path
+              d="M10.9963 15.5002C10.8647 15.5009 10.7342 15.4757 10.6124 15.426C10.4905 15.3762 10.3797 15.3029 10.2863 15.2102L7.28628 12.2102C7.19304 12.1169 7.11908 12.0063 7.06862 11.8844C7.01816 11.7626 6.99219 11.632 6.99219 11.5002C6.99219 11.2339 7.09798 10.9785 7.28628 10.7902C7.47458 10.6019 7.72998 10.4961 7.99628 10.4961C8.26258 10.4961 8.51798 10.6019 8.70628 10.7902L10.9963 13.0902L15.2863 8.79018C15.4746 8.60188 15.73 8.49609 15.9963 8.49609C16.2626 8.49609 16.518 8.60188 16.7063 8.79018C16.8946 8.97849 17.0004 9.23388 17.0004 9.50018C17.0004 9.76649 16.8946 10.0219 16.7063 10.2102L11.7063 15.2102C11.6128 15.3029 11.502 15.3762 11.3802 15.426C11.2583 15.4757 11.1279 15.5009 10.9963 15.5002Z"
+              fill="white"
+            />
+          </>
+        );
+      case 'checkbox-checked':
+        return (
+          <>
+            <path
+              d="M20 2H4C2.89543 2 2 2.89543 2 4V20C2 21.1046 2.89543 22 4 22H20C21.1046 22 22 21.1046 22 20V4C22 2.89543 21.1046 2 20 2Z"
+              fill="#E8FCF9"
+            />
+            <path
+              d="M10.9963 15.5002C10.8647 15.5009 10.7342 15.4757 10.6124 15.426C10.4905 15.3762 10.3797 15.3029 10.2863 15.2102L7.28628 12.2102C7.19304 12.1169 7.11908 12.0063 7.06862 11.8844C7.01816 11.7626 6.99219 11.632 6.99219 11.5002C6.99219 11.2339 7.09798 10.9785 7.28628 10.7902C7.47458 10.6019 7.72998 10.4961 7.99628 10.4961C8.26258 10.4961 8.51798 10.6019 8.70628 10.7902L10.9963 13.0902L15.2863 8.79018C15.4746 8.60188 15.73 8.49609 15.9963 8.49609C16.2626 8.49609 16.518 8.60188 16.7063 8.79018C16.8946 8.97849 17.0004 9.23388 17.0004 9.50018C17.0004 9.76649 16.8946 10.0219 16.7063 10.2102L11.7063 15.2102C11.6128 15.3029 11.502 15.3762 11.3802 15.426C11.2583 15.4757 11.1279 15.5009 10.9963 15.5002Z"
+              fill="#91C4BC"
+            />
+          </>
+        );
+      case 'chevron-right':
+        return (
+          <path
+            d="M9 18L15 12L9 6"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      case 'chevron-down':
+        return (
+          <path
+            d="M6 9L12 15L18 9"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      case 'close':
+        return (
+          <path
+            d="M18 6L6 18M6 6L18 18"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      case 'share':
+        return (
+          <path
+            d="M4 12V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V12M16 6L12 2L8 6M12 2V15"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      case 'check':
+        return (
+          <path
+            d="M20 6L9 17L4 12"
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const Component = onClick ? 'button' : 'div';
+  const props = onClick ? { onClick } : {};
+
+  return (
+    <Component
+      {...props}
+      className={`inline-flex items-center justify-center ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {getIconPath()}
+      </svg>
+    </Component>
+  );
+}

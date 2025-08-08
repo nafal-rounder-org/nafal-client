@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "pnpm install",
+  "functions": {
+    "apps/web/src/app/**/*.tsx": {
+      "maxDuration": 30
+    }
+  }
+}
